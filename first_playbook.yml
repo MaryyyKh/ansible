@@ -1,28 +1,61 @@
 ---
-- name: My First Ansible Playbook
-  hosts: web-servers
-  become: yes
-  become_method: sudo
-  become_user: root
-  gather_facts: yes
+- name: Add hosts
+  hosts: localhost
+  gather_facts: no
   tasks:
-    # - name: Update apt package cache
-    #   apt:
-    #     update_cache: yes
-    #   when: ansible_os_family == "Debian"
+    - name: Define host-1
+      add_host:
+        name: web-server-1
+        ansible_host: 10.29.55.196
+        ansible_ssh_user: web-server-1
+        ansible_ssh_pass: "123456"
+        ansible_become: yes
+        ansible_become_pass: "123456"
 
+    - name: Define host-2
+      add_host:
+        name: web-server-2
+        ansible_host: 10.29.55.197
+        ansible_ssh_user: web-server-2
+        ansible_ssh_pass: "123456"
+        ansible_become: yes
+        ansible_become_pass: "123456"
+
+        
+- name: My First Ansible Playbook
+  hosts: 
+    - web-server-1
+    - web-server-2
+  become: yes
+  tasks:
+    - name: Update apt package cache
+      apt:
+        update_cache: yes
+      become: yes
+      become_user: root
+      become_method: sudo
+      when: ansible_pkg_mgr == "apt"
     - name: Install Nginx package
+      become: yes
+      become_user: root
+      become_method: sudo
       package:
         name: nginx
         state: present
 
     - name: Start and Enable Nginx service
+      become: yes
+      become_user: root
+      become_method: sudo
       service:
         name: nginx
         state: started
         enabled: yes
 
     - name: Copy index.html
+      become: yes
+      become_user: root
+      become_method: sudo
       copy:
         content: "<h1>Hello from {{ ansible_hostname }}!</h1>"
         dest: /var/www/html/index.html
