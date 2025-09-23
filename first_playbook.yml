@@ -1,3 +1,4 @@
+---
 - name: My First Ansible Playbook
   hosts: web-servers
   become: yes
