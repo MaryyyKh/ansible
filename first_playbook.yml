@@ -1,4 +1,25 @@
 ---
+- name: Add hosts
+  hosts: localhost
+  gather_facts: no
+  tasks:
+    - name: Define host-1
+      add_host:
+        name: web-server-1
+        ansible_host: 172.20.10.3
+        ansible_ssh_user: admin
+        ansible_ssh_pass: "123456"
+        ansible_become: yes
+        ansible_become_pass: "123456"
+
+    - name: Define host-2
+      add_host:
+        name: web-server-2
+        ansible_host: 172.20.10.9
+        ansible_ssh_user: admin
+        ansible_ssh_pass: "123456"
+        ansible_become: yes
+        ansible_become_pass: "123456"
 - name: My First Ansible Playbook
   hosts: 
     - web-server-1
