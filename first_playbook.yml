@@ -1,25 +1,25 @@
 ---
-- name: Add hosts
-  hosts: localhost
-  gather_facts: no
-  tasks:
-    - name: Define host-1
-      add_host:
-        name: web-server-1
-        ansible_host: 10.29.55.196
-        ansible_ssh_user: admin
-        ansible_ssh_pass: "123456"
-        ansible_become: yes
-        ansible_become_pass: "123456"
+# - name: Add hosts
+#   hosts: localhost
+#   gather_facts: no
+#   tasks:
+#     - name: Define host-1
+#       add_host:
+#         name: web-server-1
+#         ansible_host: 10.29.55.196
+#         ansible_ssh_user: admin
+#         ansible_ssh_pass: "123456"
+#         ansible_become: yes
+#         ansible_become_pass: "123456"
 
-    - name: Define host-2
-      add_host:
-        name: web-server-2
-        ansible_host: 10.29.55.197
-        ansible_ssh_user: admin
-        ansible_ssh_pass: "123456"
-        ansible_become: yes
-        ansible_become_pass: "123456"
+#     - name: Define host-2
+#       add_host:
+#         name: web-server-2
+#         ansible_host: 10.29.55.197
+#         ansible_ssh_user: admin
+#         ansible_ssh_pass: "123456"
+#         ansible_become: yes
+#         ansible_become_pass: "123456"
 
         
 - name: My First Ansible Playbook
@@ -28,13 +28,13 @@
     - web-server-2
   become: yes
   tasks:
-    - name: Update apt package cache
-      apt:
-        update_cache: yes
-      become: yes
-      become_user: root
-      become_method: sudo
-      when: ansible_pkg_mgr == "apt"
+    # - name: Update apt package cache
+    #   apt:
+    #     update_cache: yes
+    #   become: yes
+    #   become_user: root
+    #   become_method: sudo
+    #   when: ansible_pkg_mgr == "apt"
     - name: Install Nginx package
       become: yes
       become_user: root
